@@ -9,16 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    let coinData = CoinData()
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return coinData.currencyArray.count
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +21,16 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
     
+    let coinData = CoinData()
+//MARK: - PickerComponents
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return coinData.currencyArray.count
+    }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return coinData.currencyArray[row]
     }
@@ -39,7 +39,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         coinData.getCoinPrice(for: coinData.currencyArray[row])
     }
 }
-
+//MARK: - CoinDataDelegate
 extension ViewController: CoinDataDelegate {
 
     func didUpdateBTCPrice(_ coinData: CoinData, coin: CoinModel) {
@@ -52,4 +52,3 @@ extension ViewController: CoinDataDelegate {
         print(error)
     }
 }
-
