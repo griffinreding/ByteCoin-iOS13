@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        coinData.delegate = self
         currencyPicker.dataSource = self
         currencyPicker.delegate = self
     }
@@ -21,7 +22,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
     
-    let coinData = CoinData()
+    var coinData = CoinData()
 //MARK: - PickerComponents
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -45,7 +46,7 @@ extension ViewController: CoinDataDelegate {
     func didUpdateBTCPrice(_ coinData: CoinData, coin: CoinModel) {
         DispatchQueue.main.async {
             print(coin.rate)
-            self.bitcoinLabel.text = String(format: ".2f", coin.rate)
+            self.bitcoinLabel.text = String(format: "%.2f", coin.rate)
         }
     }
     func didFailWithError(error: Error) {
