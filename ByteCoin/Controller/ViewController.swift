@@ -37,6 +37,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        currencyLabel.text = coinData.currencyArray[row]
         coinData.getCoinPrice(for: coinData.currencyArray[row])
     }
 }
